@@ -1,0 +1,54 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.phone-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.phone {
+    width: 300px; /* Adjust the width as needed */
+    height: 600px; /* Adjust the height as needed */
+    background-color: #000;
+    border-radius: 30px; /* Adjust as needed */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Adjust shadow as needed */
+    overflow: hidden; /* Hide overflow content */
+    position: relative; /* Relative positioning for absolute children */
+}
+
+.phone-header {
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.battery {
+    width: 30px;
+    height: 15px;
+    background-color: #777;
+    border-radius: 5px;
+}
+
+.network {
+    width: 50px;
+    height: 10px;
+    background-color: #777;
+    border-radius: 5px;
+}
+
+.time {
+    color: #fff;
+}
+
+.app {
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+}
