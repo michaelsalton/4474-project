@@ -12,7 +12,7 @@
             <div class="phone-header">
                 <div class="battery"></div>
                 <div class="network"></div>
-                <div class="time">12:00</div>
+                <div class="time" id="currentTime"></div>
             </div>
             <div class="app">
                 <!-- Your app content goes here -->
@@ -34,6 +34,20 @@
         function navigateTo(screen) {
             document.getElementById('screenTitle').innerHTML = `<h1>${screen}</h1>`;
         }
+
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        // Update time every second
+        setInterval(updateTime, 1000);
+
+        // Initial call to set time immediately
+        updateTime();
     </script>
 </body>
 </html>
