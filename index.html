@@ -16,10 +16,24 @@
             </div>
             <div class="app">
                 <!-- Your app content goes here -->
-                <h1>Ultimate Guitar: Chords and Tabs</h1>
-                <p>A Redesign by Group 16</p>
+                <div id="screenTitle">
+                    <h1>Ultimate Guitar: Chords and Tabs</h1>
+                    <p>A redesign by group 16.</p>
+                </div>
+            </div>
+            <div class="bottom-bar">
+                <button class="button" onclick="navigateTo('Search')">Search</button>
+                <button class="button" onclick="navigateTo('My Tabs')">My Tabs</button>
+                <button class="button" onclick="navigateTo('Courses')">Courses</button>
+                <button class="button" onclick="navigateTo('Profile')">Profile</button>
             </div>
         </div>
     </div>
+
+    <script>
+        function navigateTo(screen) {
+            document.getElementById('screenTitle').innerHTML = `<h1>${screen}</h1>`;
+        }
+    </script>
 </body>
 </html>
