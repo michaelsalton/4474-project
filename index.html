@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultimate Guitar: Chords and Tabs</title>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -31,23 +32,26 @@
     </div>
 
     <script>
-        function navigateTo(screen) {
-            document.getElementById('screenTitle').innerHTML = `<h1>${screen}</h1>`;
-        }
+        $(document).ready(function() {
+			function navigateTo(screen) {
+				$('#screenTitle').html('<h1>' + screen + '</h1>');
+			}
 
-        function updateTime() {
-            const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const timeString = `${hours}:${minutes}`;
-            document.getElementById('currentTime').textContent = timeString;
-        }
+			function updateTime() {
+				const now = new Date();
+				const hours = now.getHours().toString().padStart(2, '0');
+				const minutes = now.getMinutes().toString().padStart(2, '0');
+				const timeString = hours + ':' + minutes;
+				$('#currentTime').text(timeString);
+			}
 
-        // Update time every second
-        setInterval(updateTime, 1000);
+			// Update time every second
+			setInterval(updateTime, 1000);
 
-        // Initial call to set time immediately
-        updateTime();
+			// Initial call to set time immediately
+			updateTime();
+		});
+
     </script>
 </body>
 </html>
