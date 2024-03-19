@@ -21,6 +21,26 @@
                     <h1>Ultimate Guitar: Chords and Tabs</h1>
                     <p>A redesign by group 16.</p>
                 </div>
+				<div class="user-level">
+					<div class="user-level-text">Please select your skill level:</div>
+					<button class="level-button" id="beginner">Beginner</button>
+					<button class="level-button" id="medium-advanced">Medium/Advanced</button>
+				</div>
+				<div class="suggested-songs" id="Beginner">
+					<div style="color: #fff; margin-bottom: 20px;">Beginner Songs</div>
+					<button class="level-button">Stand by Me</button>
+					<button class="level-button">Bad Moon Rising</button>
+					<button class="level-button">I Walk the Line</button>
+					<button class="level-button">Creep</button>
+				</div>
+				<div class="suggested-songs" id="MediumAdvanced">
+					<div style="color: #fff; margin-bottom: 20px;">Medium/Advanced Songs</div>
+					<button class="level-button">Hotel California</button>
+					<button class="level-button">Free Bird</button>
+					<button class="level-button">Layla</button>
+					<button class="level-button">Thunderstruck</button>
+				</div>
+				<button class="level-button switch-level-button" id="switchLevel">Switch Level</button>
             </div>
             <div class="bottom-bar">
                 <button class="button" onclick="navigateTo('Search')">Search</button>
@@ -33,6 +53,11 @@
 
     <script>
         $(document).ready(function() {
+		
+			// Hide suggested songs initially
+			$('.suggested-songs').hide();
+			$('#switchLevel').hide();
+		
 			function navigateTo(screen) {
 				$('#screenTitle').html('<h1>' + screen + '</h1>');
 			}
@@ -50,6 +75,52 @@
 
 			// Initial call to set time immediately
 			updateTime();
+			
+			// Handle user-level selection
+			$('.level-button').click(function() {
+				// Hide the user-level div
+				$('.user-level').hide();
+				// Show the user-level toggle
+				$('#switchLevel').show();
+				// Check which button was clicked
+				if (this.id === 'beginner') {
+					// Show suggested songs for beginners
+					$('#Beginner').show();
+				} else if (this.id === 'medium-advanced') {
+					// Show suggested songs for medium/advanced
+					$('#MediumAdvanced').show();
+				}
+			});
+			
+			// level toggle
+			$('#switchLevel').click(function() {
+				if ($('#Beginner').is(':visible')) {
+					$('#Beginner').hide();
+					$('#MediumAdvanced').show();
+				} else {
+					$('#MediumAdvanced').hide();
+					$('#Beginner').show();
+				}
+			});
+				
+			function setButtonWidth() {
+				let maxWidth = 0;
+				$('.level-button').each(function() {
+					let width = $(this).outerWidth();
+					maxWidth = Math.max(maxWidth, width);
+				});
+				$('.level-button').css('width', maxWidth + 'px');
+				
+				$('#switchLevel').outerWidth(maxWidth + 100);
+			}
+
+			// Call the function once on page load
+			setButtonWidth();
+
+			// Re-call the function whenever the window is resized
+			$(window).resize(function() {
+				setButtonWidth();
+			});
 		});
 
     </script>

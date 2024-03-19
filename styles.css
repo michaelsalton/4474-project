@@ -76,3 +76,62 @@ body, html {
 .button:hover {
     background-color: #777;
 }
+
+.user-level {
+    position: absolute;
+    top: 60px; /* Adjust based on header height */
+    bottom: 60px; /* Adjust based on bottom bar height */
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* semi-transparent black */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Ensure it appears on top of other content */
+    padding: 20px;
+}
+
+.user-level-text {
+    color: #fff;
+	font-size: 30px;
+    margin-bottom: 20px; 
+}
+
+.level-button {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    min-width: 100px; /* Minimum width for buttons */
+}
+
+.level-button:hover {
+    background-color: #777;
+}
+
+.suggested-songs {
+    display: none; /* Initially hide the suggested songs */
+    background-color: #333; /* Background color */
+    padding: 20px; /* Padding around the content */
+    border-radius: 10px; /* Rounded corners */
+    color: #fff; /* Text color */
+    margin-top: 20px; /* Margin from the user-level section */
+}
+
+.switch-level-button {
+	margin-top: 10px;
+    background-color: #fff;
+    color: #555;
+}
+
+.switch-level-button:hover {
+    background-color: #666; /* Change color as desired */
+}
+
+
+
