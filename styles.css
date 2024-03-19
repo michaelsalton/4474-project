@@ -114,3 +114,24 @@ body, html {
     background-color: #777;
 }
 
+.suggested-songs {
+    display: none; /* Initially hide the suggested songs */
+    background-color: #333; /* Background color */
+    padding: 20px; /* Padding around the content */
+    border-radius: 10px; /* Rounded corners */
+    color: #fff; /* Text color */
+    margin-top: 20px; /* Margin from the user-level section */
+}
+
+.switch-level-button {
+	margin-top: 10px;
+    background-color: #fff;
+    color: #555;
+}
+
+.switch-level-button:hover {
+    background-color: #666; /* Change color as desired */
+}
+
+
+
