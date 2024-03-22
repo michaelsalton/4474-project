@@ -77,6 +77,25 @@
         .flashYellow {
             animation: flashYellow 0.5s forwards;
         }
+
+        .grey-box {
+            position: absolute;
+            width: 100%;
+            height: 125px; /* Height of the grey box */
+            background-color: #333; /* Very dark grey */
+            top: calc(56% + 75px); /* Adjust based on the stopping point of the PNG */
+            left: 0;
+        }
+
+        .grey-line {
+            position: absolute;
+            width: 100%;
+            height: 2px; /* Thickness of the grey line */
+            background-color: #333; /* Light grey */
+            top: calc(50% - 125px); /* 15px above the grey box */
+            left: 0;
+        }
+        
     </style>
 </head>
 <body>
@@ -90,6 +109,8 @@
             <div class="network"></div>
             <div class="time" id="currentTime"></div>
         </div>
+        <div class="grey-line"></div>
+        <div class="grey-box"></div>
         <div class="bottom-bar">
             <button class="button">Search</button>
             <button class="button">My Tabs</button>
