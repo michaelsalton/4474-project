@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Animation with Phone Screen</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #cube {
+            width: 100px;
+            height: 100px;
+            background-color: grey;
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: top 2s ease-out, left 0.5s ease-in-out 2s;
+            z-index: 1000;
+        }
+
+        .phone-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .phone {
+            transition: background-color 0.5s ease;
+        }
+
+        .phone-header {
+            z-index: 2000; /* Higher than the cube's z-index */
+            position: relative; /* Needed for z-index to take effect */
+        }
+
+        .control-buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1100;
+        }
+
+        .control-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+        }
+
+        @keyframes flashGreen {
+            from { background-color: green; }
+            to { background-color: black; }
+        }
+
+        @keyframes flashRed {
+            from { background-color: red; }
+            to { background-color: black; }
+        }
+
+        @keyframes flashYellow {
+            from { background-color: yellow; }
+            to { background-color: black; }
+        }
+
+        .flashGreen {
+            animation: flashGreen 0.5s forwards;
+        }
+
+        .flashRed {
+            animation: flashRed 0.5s forwards;
+        }
+
+        .flashYellow {
+            animation: flashYellow 0.5s forwards;
+        }
+    </style>
+</head>
+<body>
+
+<div id="cube"></div>
+
+<div class="phone-wrapper">
+    <div class="phone">
+        <div class="phone-header">
+            <div class="battery"></div>
+            <div class="network"></div>
+            <div class="time" id="currentTime"></div>
+        </div>
+        <div class="bottom-bar">
+            <button class="button">Search</button>
+            <button class="button">My Tabs</button>
+            <button class="button">Courses</button>
+            <button class="button">Profile</button>
+        </div>
+    </div>
+</div>
+
+<!-- Directional Control Buttons -->
+<div class="control-buttons">
+    <button id="moveLeft">Incorrect Chord</button>
+    <button id="moveRight">Correct Chord</button>
+</div>
+
+<script>
+$(document).ready(function() {
+    let playing = true;
+    let isSlidingDown = true;
+
+    function animateCube() {
+        $('#cube').css({
+            'top': '-100px',
+            'left': '50%',
+            'transition': 'none',
+        }).show();
+
+        isSlidingDown = true;
+
+        setTimeout(() => {
+            $('#cube').css({
+                'top': '50%',
+                'transition': 'top 2s ease-out',
+            });
+            setTimeout(() => isSlidingDown = false, 2100); // Ensures cube has fully stopped
+        }, 100);
+    }
+
+    $('#moveLeft').click(function() {
+        if (isSlidingDown) {
+            flashScreen('flashRed'); // Incorrect early press flashes red
+            $('#cube').hide();
+            setTimeout(animateCube, 500); // Respawn cube after flash
+        } else {
+            moveCube('left');
+            flashScreen('flashRed');
+        }
+    });
+
+    $('#moveRight').click(function() {
+        if (isSlidingDown) {
+            flashScreen('flashYellow'); // Correct early press flashes yellow
+            $('#cube').hide();
+            setTimeout(animateCube, 500); // Respawn cube after flash
+        } else {
+            moveCube('right');
+            flashScreen('flashGreen');
+        }
+    });
+
+    function moveCube(direction) {
+        let newPos = direction === 'left' ? '0vw' : '100vw';
+        $('#cube').css({
+            'left': newPos,
+            'transition': 'left 0.5s ease-in-out',
+        });
+        setTimeout(animateCube, 500); // Ensures cube respawns for next interaction
+    }
+
+    function flashScreen(colorClass) {
+        const phone = $('.phone');
+        phone.addClass(colorClass);
+        setTimeout(() => {
+            phone.removeClass(colorClass);
+        }, 500); // Duration of flash effect
+    }
+
+    function updateTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        $('#currentTime').text(hours + ':' + minutes);
+    }
+
+    setInterval(updateTime, 1000); // Update time every second
+
+    // Start the initial animation of the cube
+    animateCube();
+});
+</script>
+</body>
+</html>
