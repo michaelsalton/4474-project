@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Menu Screen</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="phone-wrapper">
+        <div class="phone">
+            <div class="phone-header">
+                <div class="battery"></div>
+                <div class="network"></div>
+                <div class="time" id="currentTime"></div>
+            </div>
+            <div class="bottom-bar">
+                <button class="button" onclick="navigateTo('Search')">Search</button>
+                <button class="button" onclick="navigateTo('My Tabs')">My Tabs</button>
+                <button class="button" onclick="navigateTo('Courses')">Courses</button>
+                <button class="button" onclick="navigateTo('Profile')">Profile</button>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        $(document).ready(function() {
+            function navigateTo(screen) {
+                // Implement screen navigation functionality here
+            }
+
+            function updateTime() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const timeString = hours + ':' + minutes;
+                $('#currentTime').text(timeString);
+            }
+
+            // Update time every second
+            setInterval(updateTime, 1000);
+
+            // Initial call to set time immediately
+            updateTime();
+        });
+    </script>
+</body>
+</html>
