@@ -115,12 +115,14 @@ body, html {
 }
 
 .suggested-songs {
-    display: none; /* Initially hide the suggested songs */
-    background-color: #333; /* Background color */
-    padding: 20px; /* Padding around the content */
-    border-radius: 10px; /* Rounded corners */
-    color: #fff; /* Text color */
-    margin-top: 20px; /* Margin from the user-level section */
+    display: none;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff;
+    margin-top: 20px;
+    max-height: 200px; /* Set a fixed maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .switch-level-button {
