@@ -17,14 +17,15 @@
             </div>
             <div class="app">
                 <!-- Your app content goes here -->
-                <div id="screenTitle">
+                <div id="screenTitle" style="display: none;">
                     <h1>Ultimate Guitar: Chords and Tabs</h1>
                     <p>A redesign by group 16.</p>
                 </div>
 				<div class="user-level">
 					<div class="user-level-text">Please select your skill level:</div>
 					<button class="level-button" id="beginner">Beginner</button>
-					<button class="level-button" id="medium-advanced">Medium/Advanced</button>
+					<button class="level-button" id="intermediate">Intermediate</button>
+					<button class="level-button" id="advanced">Advanced</button>
 				</div>
 				<div class="suggested-songs" id="Beginner">
 					<div style="color: #fff; margin-bottom: 20px;">Beginner Songs</div>
@@ -33,20 +34,29 @@
 					<button class="level-button">I Walk the Line</button>
 					<button class="level-button">Creep</button>
 				</div>
-				<div class="suggested-songs" id="MediumAdvanced">
-					<div style="color: #fff; margin-bottom: 20px;">Medium/Advanced Songs</div>
+				<div class="suggested-songs" id="Intermediate">
+					<div style="color: #fff; margin-bottom: 20px;">Intermediate Songs</div>
+					<button class="level-button">Stairway to Heaven</button>
+					<button class="level-button">Sweet Child O' Mine</button>
+					<button class="level-button">Wonderwall</button>
 					<button class="level-button">Hotel California</button>
-					<button class="level-button">Free Bird</button>
-					<button class="level-button">Layla</button>
-					<button class="level-button">Thunderstruck</button>
 				</div>
-				<button class="level-button switch-level-button" id="switchLevel">Switch Level</button>
+				<div class="suggested-songs" id="Advanced">
+					<div style="color: #fff; margin-bottom: 20px;">Advanced Songs</div>
+					<button class="level-button">Eruption</button>
+					<button class="level-button">Cliffs of Dover</button>
+					<button class="level-button">Sultans of Swing</button>
+					<button class="level-button">Master of Puppets</button>
+				</div>
+				<button class="level-button switch-level-button" id="switchLevel" style="display: none;">Switch Level</button>
             </div>
-            <div class="bottom-bar">
-                <button class="button" onclick="navigateTo('Search')">Search</button>
-                <button class="button" onclick="navigateTo('My Tabs')">My Tabs</button>
-                <button class="button" onclick="navigateTo('Courses')">Courses</button>
-                <button class="button" onclick="navigateTo('Profile')">Profile</button>
+            <div class="bottom-bar-container" style="display: none;">
+                <div class="bottom-bar">
+                    <button class="button" onclick="navigateTo('Search')">Search</button>
+                    <button class="button" onclick="navigateTo('My Tabs')">My Tabs</button>
+                    <button class="button" onclick="navigateTo('Courses')">Courses</button>
+                    <button class="button" onclick="navigateTo('Profile')">Profile</button>
+                </div>
             </div>
         </div>
     </div>
@@ -59,7 +69,7 @@
 			$('#switchLevel').hide();
 		
 			function navigateTo(screen) {
-				$('#screenTitle').html('<h1>' + screen + '</h1>');
+				$('#screenTitle').html('<h1>' + screen + '</h1>').show();
 			}
 
 			function updateTime() {
@@ -82,13 +92,20 @@
 				$('.user-level').hide();
 				// Show the user-level toggle
 				$('#switchLevel').show();
+				// Show the bottom bar container
+				$('.bottom-bar-container').show();
+				// Show the title
+				$('#screenTitle').show();
 				// Check which button was clicked
 				if (this.id === 'beginner') {
 					// Show suggested songs for beginners
 					$('#Beginner').show();
-				} else if (this.id === 'medium-advanced') {
-					// Show suggested songs for medium/advanced
-					$('#MediumAdvanced').show();
+				} else if (this.id === 'intermediate') {
+					// Show suggested songs for intermediate
+					$('#Intermediate').show();
+				} else if (this.id === 'advanced') {
+					// Show suggested songs for advanced
+					$('#Advanced').show();
 				}
 			});
 			
@@ -96,9 +113,12 @@
 			$('#switchLevel').click(function() {
 				if ($('#Beginner').is(':visible')) {
 					$('#Beginner').hide();
-					$('#MediumAdvanced').show();
+					$('#Intermediate').show();
+				} else if ($('#Intermediate').is(':visible')) {
+					$('#Intermediate').hide();
+					$('#Advanced').show();
 				} else {
-					$('#MediumAdvanced').hide();
+					$('#Advanced').hide();
 					$('#Beginner').show();
 				}
 			});
