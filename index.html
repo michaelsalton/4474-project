@@ -29,24 +29,24 @@
                 </div>
                 <div class="suggested-songs" id="Beginner">
                     <div style="color: #fff; margin-bottom: 20px;">Beginner Songs</div>
-                    <button class="level-button">Stand by Me</button>
-                    <button class="level-button">Bad Moon Rising</button>
-                    <button class="level-button">I Walk the Line</button>
-                    <button class="level-button">Creep</button>
+                    <button class="level-button song-button" data-song="Stand by Me">Stand by Me</button>
+                    <button class="level-button song-button" data-song="Bad Moon Rising">Bad Moon Rising</button>
+                    <button class="level-button song-button" data-song="I Walk the Line">I Walk the Line</button>
+                    <button class="level-button song-button" data-song="Creep">Creep</button>
                 </div>
                 <div class="suggested-songs" id="Intermediate">
                     <div style="color: #fff; margin-bottom: 20px;">Intermediate Songs</div>
-                    <button class="level-button">Stairway to Heaven</button>
-                    <button class="level-button">Sweet Child O' Mine</button>
-                    <button class="level-button">Wonderwall</button>
-                    <button class="level-button">Hotel California</button>
+                    <button class="level-button song-button" data-song="Stairway to Heaven">Stairway to Heaven</button>
+                    <button class="level-button song-button" data-song="Sweet Child O' Mine">Sweet Child O' Mine</button>
+                    <button class="level-button song-button" data-song="Wonderwall">Wonderwall</button>
+                    <button class="level-button song-button" data-song="Hotel California">Hotel California</button>
                 </div>
                 <div class="suggested-songs" id="Advanced">
                     <div style="color: #fff; margin-bottom: 20px;">Advanced Songs</div>
-                    <button class="level-button">Eruption</button>
-                    <button class="level-button">Cliffs of Dover</button>
-                    <button class="level-button">Sultans of Swing</button>
-                    <button class="level-button">Master of Puppets</button>
+                    <button class="level-button song-button" data-song="Eruption">Eruption</button>
+                    <button class="level-button song-button" data-song="Cliffs of Dover">Cliffs of Dover</button>
+                    <button class="level-button song-button" data-song="Sultans of Swing">Sultans of Swing</button>
+                    <button class="level-button song-button" data-song="Master of Puppets">Master of Puppets</button>
                 </div>
                 <button class="level-button switch-level-button" id="switchLevel" style="display: none;">Switch Level</button>
             </div>
@@ -61,115 +61,118 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            // Hide suggested songs initially
-            $('.suggested-songs').hide();
-            $('#switchLevel').hide();
+$(document).ready(function() {
+    // Hide suggested songs initially
+    $('.suggested-songs').hide();
+    $('#switchLevel').hide();
 
-            function navigateTo(screen) {
-                $('#screenTitle').html('<h1>' + screen + '</h1>').show();
-            }
+    function updateTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const timeString = hours + ':' + minutes;
+        $('#currentTime').text(timeString);
+    }
 
-            function updateTime() {
-                const now = new Date();
-                const hours = now.getHours().toString().padStart(2, '0');
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                const timeString = hours + ':' + minutes;
-                $('#currentTime').text(timeString);
-            }
+    // Update time every second
+    setInterval(updateTime, 1000);
 
-            // Update time every second
-            setInterval(updateTime, 1000);
+    // Initial call to set time immediately
+    updateTime();
 
-            // Initial call to set time immediately
-            updateTime();
+    // Handle user-level selection
+    $('.level-button').click(function() {
+        // Hide the user-level div
+        $('.user-level').hide();
+        // Show the user-level toggle
+        $('#switchLevel').show();
+        // Show the bottom bar container
+        $('.bottom-bar-container').show();
+        // Show the title
+        $('#screenTitle').show();
+        // Check which button was clicked
+        if (this.id === 'beginner') {
+            // Show suggested songs for beginners
+            $('#Beginner').show();
+        } else if (this.id === 'intermediate') {
+            // Show suggested songs for intermediate
+            $('#Intermediate').show();
+        } else if (this.id === 'advanced') {
+            // Show suggested songs for advanced
+            $('#Advanced').show();
+        }
+    });
 
-            // Handle user-level selection
-            $('.level-button').click(function() {
-                // Hide the user-level div
-                $('.user-level').hide();
-                // Show the user-level toggle
-                $('#switchLevel').show();
-                // Show the bottom bar container
-                $('.bottom-bar-container').show();
-                // Show the title
-                $('#screenTitle').show();
-                // Check which button was clicked
-                if (this.id === 'beginner') {
-                    // Show suggested songs for beginners
-                    $('#Beginner').show();
-                } else if (this.id === 'intermediate') {
-                    // Show suggested songs for intermediate
-                    $('#Intermediate').show();
-                } else if (this.id === 'advanced') {
-                    // Show suggested songs for advanced
-                    $('#Advanced').show();
-                }
-            });
+    // level toggle
+    $('#switchLevel').click(function() {
+        // Hide all other content and show the select level page
+        $('.suggested-songs').hide();
+        $('.user-level').show();
+        $('#switchLevel').hide();
+    });
 
-            // level toggle
-            $('#switchLevel').click(function() {
-                if ($('#Beginner').is(':visible')) {
-                    $('#Beginner').hide();
-                    $('#Intermediate').show();
-                } else if ($('#Intermediate').is(':visible')) {
-                    $('#Intermediate').hide();
-                    $('#Advanced').show();
-                } else {
-                    $('#Advanced').hide();
-                    $('#Beginner').show();
-                }
-            });
+    // Show Songs tab content by default
+    $('#songsButton').click(function() {
+        $('.user-level').hide();
+        $('#switchLevel').show();
+        $('.bottom-bar-container').show();
+        $('#screenTitle').show();
+        $('.suggested-songs').hide();
+        $('#Beginner').show();
+    });
 
-            // Show Songs tab content by default
-            $('#songsButton').click(function() {
-                $('.user-level').hide();
-                $('#switchLevel').show();
-                $('.bottom-bar-container').show();
-                $('#screenTitle').show();
-                $('.suggested-songs').hide();
-                $('#Beginner').show();
-            });
+    // Show blank content for Search tab
+    $('#searchButton').click(function() {
+        $('.user-level').hide();
+        $('#switchLevel').hide();
+        $('.bottom-bar-container').show(); // Show bottom bar for Search
+        $('#screenTitle').show(); // Show header bar for Search
+        $('.suggested-songs').hide();
+        // Add your Search content here
+    });
 
-            // Show blank content for Search tab
-            $('#searchButton').click(function() {
-                $('.user-level').hide();
-                $('#switchLevel').hide();
-                $('.bottom-bar-container').show(); // Show bottom bar for Search
-                $('#screenTitle').show(); // Show header bar for Search
-                $('.suggested-songs').hide();
-                // Add your Search content here
-            });
+    // Show blank content for Profile tab
+    $('#profileButton').click(function() {
+        $('.user-level').hide();
+        $('#switchLevel').hide();
+        $('.bottom-bar-container').show(); // Show bottom bar for Profile
+        $('#screenTitle').show(); // Show header bar for Profile
+        $('.suggested-songs').hide();
+        // Add your Profile content here
+    });
 
-            // Show blank content for Profile tab
-            $('#profileButton').click(function() {
-                $('.user-level').hide();
-                $('#switchLevel').hide();
-                $('.bottom-bar-container').show(); // Show bottom bar for Profile
-                $('#screenTitle').show(); // Show header bar for Profile
-                $('.suggested-songs').hide();
-                // Add your Profile content here
-            });
+    // Handle click on song button
+    $('.song-button').click(function() {
+        // Hide all content except header and back button
+        $('.user-level').hide();
+        $('#switchLevel').hide();
+        $('.bottom-bar-container').hide();
+        $('.suggested-songs').hide(); // Hide song list
+        $('#screenTitle').html('<div class="back-arrow">&#8592;</div>').show();
+        // Navigate to another blank page
+        // Add your song-specific content here
+        // You can access the song name using $(this).data('song')
+    });
 
-            function setButtonWidth() {
-                let maxWidth = 0;
-                $('.level-button').each(function() {
-                    let width = $(this).outerWidth();
-                    maxWidth = Math.max(maxWidth, width);
-                });
-                $('.level-button').css('width', maxWidth + 'px');
-
-                $('#switchLevel').outerWidth(maxWidth + 100);
-            }
-
-            // Call the function once on page load
-            setButtonWidth();
-
-            // Re-call the function whenever the window is resized
-            $(window).resize(function() {
-                setButtonWidth();
-            });
+    function setButtonWidth() {
+        let maxWidth = 0;
+        $('.level-button').each(function() {
+            let width = $(this).outerWidth();
+            maxWidth = Math.max(maxWidth, width);
         });
+        $('.level-button').css('width', maxWidth + 'px');
+
+        $('#switchLevel').outerWidth(maxWidth + 100);
+    }
+
+    // Call the function once on page load
+    setButtonWidth();
+
+    // Re-call the function whenever the window is resized
+    $(window).resize(function() {
+        setButtonWidth();
+    });
+});
     </script>
 </body>
 </html>
