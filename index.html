@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultimate Guitar: Chords and Tabs</title>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -21,40 +21,39 @@
                     <h1>Ultimate Guitar: Chords and Tabs</h1>
                     <p>A redesign by group 16.</p>
                 </div>
-				<div class="user-level">
-					<div class="user-level-text">Please select your skill level:</div>
-					<button class="level-button" id="beginner">Beginner</button>
-					<button class="level-button" id="intermediate">Intermediate</button>
-					<button class="level-button" id="advanced">Advanced</button>
-				</div>
-				<div class="suggested-songs" id="Beginner">
-					<div style="color: #fff; margin-bottom: 20px;">Beginner Songs</div>
-					<button class="level-button">Stand by Me</button>
-					<button class="level-button">Bad Moon Rising</button>
-					<button class="level-button">I Walk the Line</button>
-					<button class="level-button">Creep</button>
-				</div>
-				<div class="suggested-songs" id="Intermediate">
-					<div style="color: #fff; margin-bottom: 20px;">Intermediate Songs</div>
-					<button class="level-button">Stairway to Heaven</button>
-					<button class="level-button">Sweet Child O' Mine</button>
-					<button class="level-button">Wonderwall</button>
-					<button class="level-button">Hotel California</button>
-				</div>
-				<div class="suggested-songs" id="Advanced">
-					<div style="color: #fff; margin-bottom: 20px;">Advanced Songs</div>
-					<button class="level-button">Eruption</button>
-					<button class="level-button">Cliffs of Dover</button>
-					<button class="level-button">Sultans of Swing</button>
-					<button class="level-button">Master of Puppets</button>
-				</div>
-				<button class="level-button switch-level-button" id="switchLevel" style="display: none;">Switch Level</button>
+                <div class="user-level">
+                    <div class="user-level-text">Please select your skill level:</div>
+                    <button class="level-button" id="beginner">Beginner</button>
+                    <button class="level-button" id="intermediate">Intermediate</button>
+                    <button class="level-button" id="advanced">Advanced</button>
+                </div>
+                <div class="suggested-songs" id="Beginner">
+                    <div style="color: #fff; margin-bottom: 20px;">Beginner Songs</div>
+                    <button class="level-button">Stand by Me</button>
+                    <button class="level-button">Bad Moon Rising</button>
+                    <button class="level-button">I Walk the Line</button>
+                    <button class="level-button">Creep</button>
+                </div>
+                <div class="suggested-songs" id="Intermediate">
+                    <div style="color: #fff; margin-bottom: 20px;">Intermediate Songs</div>
+                    <button class="level-button">Stairway to Heaven</button>
+                    <button class="level-button">Sweet Child O' Mine</button>
+                    <button class="level-button">Wonderwall</button>
+                    <button class="level-button">Hotel California</button>
+                </div>
+                <div class="suggested-songs" id="Advanced">
+                    <div style="color: #fff; margin-bottom: 20px;">Advanced Songs</div>
+                    <button class="level-button">Eruption</button>
+                    <button class="level-button">Cliffs of Dover</button>
+                    <button class="level-button">Sultans of Swing</button>
+                    <button class="level-button">Master of Puppets</button>
+                </div>
+                <button class="level-button switch-level-button" id="switchLevel" style="display: none;">Switch Level</button>
             </div>
             <div class="bottom-bar-container" style="display: none;">
                 <div class="bottom-bar">
                     <button class="button" onclick="navigateTo('Search')">Search</button>
-                    <button class="button" onclick="navigateTo('My Tabs')">My Tabs</button>
-                    <button class="button" onclick="navigateTo('Courses')">Courses</button>
+                    <button class="button" onclick="navigateTo('Songs')">Songs</button>
                     <button class="button" onclick="navigateTo('Profile')">Profile</button>
                 </div>
             </div>
@@ -62,99 +61,99 @@
     </div>
 
     <script>
-		$(document).ready(function() {
-			// Hide suggested songs initially
-			$('.suggested-songs').hide();
-			$('#switchLevel').hide();
-	
-			function navigateTo(screen) {
-				$('#screenTitle').html('<h1>' + screen + '</h1>').show();
-			}
-	
-			function updateTime() {
-				const now = new Date();
-				const hours = now.getHours().toString().padStart(2, '0');
-				const minutes = now.getMinutes().toString().padStart(2, '0');
-				const timeString = hours + ':' + minutes;
-				$('#currentTime').text(timeString);
-			}
-	
-			// Update time every second
-			setInterval(updateTime, 1000);
-	
-			// Initial call to set time immediately
-			updateTime();
-	
-			// Handle user-level selection
-			$('.level-button').click(function() {
-				// Hide the user-level div
-				$('.user-level').hide();
-				// Show the user-level toggle
-				$('#switchLevel').show();
-				// Show the bottom bar container
-				$('.bottom-bar-container').show();
-				// Show the title
-				$('#screenTitle').show();
-				// Check which button was clicked
-				if (this.id === 'beginner') {
-					// Show suggested songs for beginners
-					$('#Beginner').show();
-				} else if (this.id === 'intermediate') {
-					// Show suggested songs for intermediate
-					$('#Intermediate').show();
-				} else if (this.id === 'advanced') {
-					// Show suggested songs for advanced
-					$('#Advanced').show();
-				}
-			});
-	
-			// level toggle
-			$('#switchLevel').click(function() {
-				if ($('#Beginner').is(':visible')) {
-					$('#Beginner').hide();
-					$('#Intermediate').show();
-				} else if ($('#Intermediate').is(':visible')) {
-					$('#Intermediate').hide();
-					$('#Advanced').show();
-				} else {
-					$('#Advanced').hide();
-					$('#Beginner').show();
-				}
-			});
-	
-			// Switch back to level selection screen
-			$('#switchLevel').click(function() {
-				// Hide suggested songs
-				$('.suggested-songs').hide();
-				// Show user-level selection
-				$('.user-level').show();
-				// Hide switch level button
-				$('#switchLevel').hide();
-				// Hide bottom bar container
-				$('.bottom-bar-container').hide();
-				// Hide screen title
-				$('#screenTitle').hide();
-			});
-	
-			function setButtonWidth() {
-				let maxWidth = 0;
-				$('.level-button').each(function() {
-					let width = $(this).outerWidth();
-					maxWidth = Math.max(maxWidth, width);
-				});
-				$('.level-button').css('width', maxWidth + 'px');
-	
-				$('#switchLevel').outerWidth(maxWidth + 100);
-			}
-	
-			// Call the function once on page load
-			setButtonWidth();
-	
-			// Re-call the function whenever the window is resized
-			$(window).resize(function() {
-				setButtonWidth();
-			});
-		});
-	</script>	
+        $(document).ready(function() {
+            // Hide suggested songs initially
+            $('.suggested-songs').hide();
+            $('#switchLevel').hide();
+
+            function navigateTo(screen) {
+                $('#screenTitle').html('<h1>' + screen + '</h1>').show();
+            }
+
+            function updateTime() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const timeString = hours + ':' + minutes;
+                $('#currentTime').text(timeString);
+            }
+
+            // Update time every second
+            setInterval(updateTime, 1000);
+
+            // Initial call to set time immediately
+            updateTime();
+
+            // Handle user-level selection
+            $('.level-button').click(function() {
+                // Hide the user-level div
+                $('.user-level').hide();
+                // Show the user-level toggle
+                $('#switchLevel').show();
+                // Show the bottom bar container
+                $('.bottom-bar-container').show();
+                // Show the title
+                $('#screenTitle').show();
+                // Check which button was clicked
+                if (this.id === 'beginner') {
+                    // Show suggested songs for beginners
+                    $('#Beginner').show();
+                } else if (this.id === 'intermediate') {
+                    // Show suggested songs for intermediate
+                    $('#Intermediate').show();
+                } else if (this.id === 'advanced') {
+                    // Show suggested songs for advanced
+                    $('#Advanced').show();
+                }
+            });
+
+            // level toggle
+            $('#switchLevel').click(function() {
+                if ($('#Beginner').is(':visible')) {
+                    $('#Beginner').hide();
+                    $('#Intermediate').show();
+                } else if ($('#Intermediate').is(':visible')) {
+                    $('#Intermediate').hide();
+                    $('#Advanced').show();
+                } else {
+                    $('#Advanced').hide();
+                    $('#Beginner').show();
+                }
+            });
+
+            // Switch back to level selection screen
+            $('#switchLevel').click(function() {
+                // Hide suggested songs
+                $('.suggested-songs').hide();
+                // Show user-level selection
+                $('.user-level').show();
+                // Hide switch level button
+                $('#switchLevel').hide();
+                // Hide bottom bar container
+                $('.bottom-bar-container').hide();
+                // Hide screen title
+                $('#screenTitle').hide();
+            });
+
+            function setButtonWidth() {
+                let maxWidth = 0;
+                $('.level-button').each(function() {
+                    let width = $(this).outerWidth();
+                    maxWidth = Math.max(maxWidth, width);
+                });
+                $('.level-button').css('width', maxWidth + 'px');
+
+                $('#switchLevel').outerWidth(maxWidth + 100);
+            }
+
+            // Call the function once on page load
+            setButtonWidth();
+
+            // Re-call the function whenever the window is resized
+            $(window).resize(function() {
+                setButtonWidth();
+            });
+        });
+    </script>
 </body>
 </html>
