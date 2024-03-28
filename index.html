@@ -62,16 +62,15 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-		
+		$(document).ready(function() {
 			// Hide suggested songs initially
 			$('.suggested-songs').hide();
 			$('#switchLevel').hide();
-		
+	
 			function navigateTo(screen) {
 				$('#screenTitle').html('<h1>' + screen + '</h1>').show();
 			}
-
+	
 			function updateTime() {
 				const now = new Date();
 				const hours = now.getHours().toString().padStart(2, '0');
@@ -79,13 +78,13 @@
 				const timeString = hours + ':' + minutes;
 				$('#currentTime').text(timeString);
 			}
-
+	
 			// Update time every second
 			setInterval(updateTime, 1000);
-
+	
 			// Initial call to set time immediately
 			updateTime();
-			
+	
 			// Handle user-level selection
 			$('.level-button').click(function() {
 				// Hide the user-level div
@@ -108,7 +107,7 @@
 					$('#Advanced').show();
 				}
 			});
-			
+	
 			// level toggle
 			$('#switchLevel').click(function() {
 				if ($('#Beginner').is(':visible')) {
@@ -122,7 +121,21 @@
 					$('#Beginner').show();
 				}
 			});
-				
+	
+			// Switch back to level selection screen
+			$('#switchLevel').click(function() {
+				// Hide suggested songs
+				$('.suggested-songs').hide();
+				// Show user-level selection
+				$('.user-level').show();
+				// Hide switch level button
+				$('#switchLevel').hide();
+				// Hide bottom bar container
+				$('.bottom-bar-container').hide();
+				// Hide screen title
+				$('#screenTitle').hide();
+			});
+	
 			function setButtonWidth() {
 				let maxWidth = 0;
 				$('.level-button').each(function() {
@@ -130,19 +143,18 @@
 					maxWidth = Math.max(maxWidth, width);
 				});
 				$('.level-button').css('width', maxWidth + 'px');
-				
+	
 				$('#switchLevel').outerWidth(maxWidth + 100);
 			}
-
+	
 			// Call the function once on page load
 			setButtonWidth();
-
+	
 			// Re-call the function whenever the window is resized
 			$(window).resize(function() {
 				setButtonWidth();
 			});
 		});
-
-    </script>
+	</script>	
 </body>
 </html>
