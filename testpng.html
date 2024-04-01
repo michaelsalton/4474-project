@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Animation with PNG Sequence</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+
+        #cube {
+            width: 7vw; /* Adjust based on actual image size */
+            height: 13vh; /* Adjust based on actual image size */
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: top 2s ease-out, left 0.5s ease-in-out 2s;
+            z-index: 1000; /* Ensure it's rendered appropriately */
+            display: none; /* Initially hidden */
+        }
+
+        .phone-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .phone {
+            transition: background-color 0.5s ease;
+            position: relative; /* For z-index context */
+            z-index: 500; /* Lower than cube to render it behind the top bar */
+        }
+
+        .phone-header {
+            z-index: 2; /* Ensures the header overlaps the cube */
+            position: relative;
+        }
+
+        .control-buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1100;
+        }
+
+        .control-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+        }
+        
+        .play-box {
+            position: absolute;
+            top: 18.5vh;
+            left: 0vw;
+            width: 31vh;
+            height: 24.5vh;
+        }
+
+        @keyframes flashGreen {
+            from { background-color: green; }
+            to { background-color: black; }
+        }
+
+        @keyframes flashRed {
+            from { background-color: red; }
+            to { background-color: black; }
+        }
+
+        @keyframes flashYellow {
+            from { background-color: yellow; }
+            to { background-color: black; }
+        }
+
+        .flashGreen {
+            animation: flashGreen 0.5s forwards;
+        }
+
+        .flashRed {
+            animation: flashRed 0.5s forwards;
+        }
+
+        .flashYellow {
+            animation: flashYellow 0.5s forwards;
+        }
+
+        .grey-box {
+            position: absolute;
+            width: 100%;
+            height: 125px; /* Height of the grey box */
+            background-color: #333; /* Very dark grey */
+            top: calc(56% + 75px); /* Adjust based on the stopping point of the PNG */
+            left: 0;
+        }
+
+        .grey-line {
+            position: absolute;
+            width: 100%;
+            height: 2px; /* Thickness of the grey line */
+            background-color: #333; /* Light grey */
+            top: calc(50% - 125px); /* 15px above the grey box */
+            left: 0;
+        }
+        
+        .slidecontainer {
+            width: 100%; /* Width of the outside container */
+            position: absolute;
+            bottom: 50px;
+        }
+
+        /* The slider itself */
+        .slider {
+            -webkit-appearance: none;  /* Override default CSS styles */
+            appearance: none;
+            width: 100%; /* Full-width */
+            height: 25px; /* Specified height */
+            background: #d3d3d3; /* Grey background */
+            outline: none; /* Remove outline */
+            opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+            -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+            transition: opacity .2s;
+            border-radius: 5px;
+        }
+
+        /* Mouse-over effects */
+        .slider:hover {
+            opacity: 1; /* Fully shown on mouse-over */
+        }
+
+        /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Override default look */
+            appearance: none;
+            width: 25px; /* Set a specific slider handle width */
+            height: 25px; /* Slider handle height */
+            background: #04AA6D; /* Green background */
+            cursor: pointer; /* Cursor on hover */
+            border-radius; 50%;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px; /* Set a specific slider handle width */
+            height: 25px; /* Slider handle height */
+            background: #04AA6D; /* Green background */
+            cursor: pointer; /* Cursor on hover */
+            border-radius: 50%;
+        }
+        
+        #words-box {
+            
+            position: absolute;
+        
+            width: 31vh;
+            height: 13.7vh;
+            
+            background-color: black;
+            
+        }
+        
+        #correct {
+        
+            position: absolute;
+            top: 3vh;
+            left: 0.4vw;
+            width: 4.5vw;
+            height: 9vh;
+        
+        }
+        
+        #correct-title {
+            
+            height: 2vh;
+            color: white;
+            margin-top: 0px;
+            text-align: center;
+            
+        }
+        
+        #correct-score {
+            
+            height: 2vh;
+            color: white;
+            margin-top: 0px;
+            text-align: center;
+        
+        }
+        
+        #worst {
+            
+            position: absolute;
+            top: 3vh;
+            left: 5.5vw;
+            width: 4.5vw;
+            height: 9vh;
+       
+        }
+        
+        #worst-title {
+        
+            height: 2vh;
+            color: white;
+            margin-top: 0px;
+            text-align: center;
+        
+        }
+        
+        #worst-img {
+        
+            margin-top: 0px;
+            width: 5vw;
+            height: 6.6vh;
+            display: none;
+        
+        }
+        
+        #accuracy {
+        
+            position: absolute;
+            top: 3vh;
+            left: 10.3vw;
+            width: 4.5vw;
+            height: 9vh;
+            
+        }
+        
+        #accuracy-title {
+        
+            height: 2vh;
+            color: white;
+            margin-top: 0px;
+            text-align: center;
+        
+        }
+        
+        #accuracy-score {
+        
+            height: 2vh;
+            color: white;
+            margin-top: 0px;
+            text-align: center;
+            
+        }
+        
+        #song-info {
+        
+            position: absolute;
+            top: 4vh;
+            left: 0vh;
+            
+            width: 8vw;
+            height: 13.7vh;
+        
+        }
+        
+        #song-info p {
+            height: 1vw;
+            margin-top: 0px;
+            margin-bottom: 0.3vh;
+            color: white;
+            font-size: 0.8em;
+        }
+        
+        #strum {
+            
+            position: absolute;
+            top: 0px;
+            left: 8vw;
+            width: 7.5vw;
+            height: 13.7vh;
+        
+        }
+        
+        #strum img {
+            
+            position: absolute;
+            left: 0vw;
+            top: 5.5vh;
+            width: 7vw;
+            height: 6vh;
+            
+        }
+        
+        #strum p {
+        
+            margin-bottom: 0.5vh;
+            margin-top: 2.6vh;
+            color: white;
+        
+        }
+        
+        #back-button {
+            
+            position: absolute;
+            left: 0vw;
+            top: 0.2vh;
+            width: 2.0vw;
+            height: 4vh;
+            background-color: transparent;
+            border-color: transparent;
+            
+        }
+        
+        #back-button img {
+            
+            width: 1.6vw;
+        
+        }
+        
+    </style>
+</head>
+<body>
+
+<div class="phone-wrapper">
+    <div class="phone">
+        <div class="phone-header">
+            <div class="battery"></div>
+            <div class="network"></div>
+            <div class="time" id="currentTime"></div>
+        </div>
+        
+        <div id="words-box">
+            <button id="back-button" onclick="navigateTo('Tab Info')">
+                <img src="images/back button.png" />
+            </button>
+            <div id="song-info">
+                <p>Song name: Stand by me</p>
+                <p>Band Name: Ben E. King</p>
+            </div>
+            <div id="strum">
+                <p> strum pattern </p>
+                <img id="strum" src="images/chord pattern.png">
+            </div>
+        </div>
+        
+        <div class="grey-line"></div>
+        <div class="play-box">
+            <img id="cube" src="" alt="Animated PNG">    
+        </div>
+        <div class="grey-box">
+             <div id="correct">
+                <p id="correct-title">Correct<p>
+                <p id="correct-score"></p>
+            </div>
+            
+            <div id="worst">
+                <p id="worst-title">Incorrect</p>
+                <img id="worst-img">
+            </div>
+            
+            <div id="accuracy">
+                <p id="accuracy-title">Accuracy</p>
+                <p id="accuracy-score">0</p>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <button class="button">Search</button>
+            <button class="button">My Tabs</button>
+            <button class="button">Courses</button>
+            <button class="button">Profile</button>
+        </div>
+    </div>
+</div>   
+
+<script>
+    
+function navigateTo(page) {
+
+    if (page == "Tab Info") {
+        window.location.href = "tab info.html";
+    }
+
+} 
+   
+$(document).ready(function() {
+    
+    let playing = true;
+    let isSlidingDown = true;
+    
+    // This is for the accuracy at the top bar
+    let correct_score = 0;
+    let incorrect_score = 0;
+    let chords_played = 0;
+	
+    // Images
+	const A  = "chords/A white.png";
+	const G  = "chords/G white.png";
+	const Em = "chords/Em white.png";
+	const C  = "chords/C white.png";
+	const D  = "chords/D white.png";
+    
+    // Number of mistakes on the chord
+    let worst_array = {0: {"key": A,  "value": 0}, 
+                       1: {"key": G,  "value": 0}, 
+                       2: {"key": Em, "value": 0}, 
+                       3: {"key": C,  "value": 0},
+                       4: {"key": D,  "value": 0}
+                      };
+    
+    // Returns the key with the worst score
+    function getWorst() {
+    
+        let worst_key = "";
+        let score = 0;
+        
+        for (let num of Object.keys(worst_array)) {
+            
+            if (worst_array[num]["value"] > score) {
+                worst_key = worst_array[num]["key"];
+                score = worst_array[num]["value"];
+            }
+        
+        }
+        
+        return worst_key;
+        
+    }
+    
+    function updateWorst(correct) {
+        
+        // Update the count
+        if (!correct) {
+            
+            for (let num of Object.keys(worst_array)) {
+            
+                if (worst_array[num]["key"] == current_image) {
+                    worst_array[num]["value"]++;
+                }
+            
+            }
+            
+        }
+        
+        
+        // Set the img
+        const img = document.getElementById("worst-img");
+        img.src = getWorst();
+        
+        if (img.src == "") {
+            img.hide();
+        } else {
+            img.show();
+        }
+        
+        
+    }
+    
+    // Set the worst
+    function initWorst() {
+        
+        // Number of mistakes on the chord
+        let worst_array = {0: {"key": A,  "value": 0}, 
+                           1: {"key": G,  "value": 0}, 
+                           2: {"key": Em, "value": 0}, 
+                           3: {"key": C,  "value": 0},
+                           4: {"key": D,  "value": 0}
+                      };
+    
+    
+    }
+    
+    // Sounds
+    const Success = "sounds/success.mp3";
+    const Failure = "sounds/fail.mp3";
+	
+    let pngList = [
+    	G, G, Em, Em, C, D, G, G, 
+		G, G, Em, Em, C, D, G, G,
+		G, G, Em, Em, C, D, G, G,
+		G, G, Em, Em, C, D, G, G,
+		G, G, Em, Em, C, D, G, G,
+		G, G, Em, Em, C, D, G, G,
+		G, G, Em, Em, C, D, G, G,
+		G, G, Em, Em, C, D, G, G,
+		G, G, Em, Em, C, D, G, G
+    ];
+    
+    // This is the slider
+    const slider = document.getElementById("speedSlider");
+
+    // Will be the image currently playing
+    let current_image;
+    function animateCube() {
+        
+        if (pngList.length > 0) {
+            let nextImage = pngList.shift();
+            current_image = nextImage;
+            $('#cube').css({
+                'top': '0px',
+                'left': '50%',
+                'transition': 'none',
+            }).show().attr('src', nextImage);
+
+            isSlidingDown = true;
+
+            setTimeout(() => {
+                $('#cube').css({
+                    'top': '50%',
+                    'transition': '1s ease-out',
+                });
+                setTimeout(() => isSlidingDown = false, 900);
+            }, 700);
+        } else {
+            playing = false;
+            $('#cube').hide();
+        }
+        
+    }
+
+    function flashAction(direction) {
+        if (isSlidingDown) {
+            // Flash screen based on direction and early press
+            flashScreen('flashYellow');
+            //$('#cube').hide(); // Hide cube immediately on early press
+            /*setTimeout(() => {
+                if (pngList.length > 0) {
+                    animateCube(); // Respawn cube if there are remaining PNGs
+                }
+            }, 500);*/ // Delay to allow for flash effect to complete
+        } else {
+            
+            // If not sliding down, proceed with normal behavior
+            moveCube(direction);
+            
+            // failure
+            let sound;
+            if (direction == 'left') {
+                flashScreen("flashRed");
+                sound = new Audio(Failure);
+            } else {
+                flashScreen("flashGreen");
+                sound = new Audio(Success);
+            }
+            sound.play();
+            
+        }
+    }
+
+    function moveCube(direction) {
+        let newPos = direction === 'left' ? '0vw' : '100vw';
+        $('#cube').css({
+            'left': newPos,
+            'transition': 'left 0.5s ease-in-out',
+        });
+        setTimeout(() => {
+            if (pngList.length > 0) {
+                animateCube(); // Only respawn cube if there are remaining PNGs
+            } else {
+                playing = false; // Stop the animation if no PNGs left
+            }
+        }, 500); // Wait for cube to move off screen before respawning
+    }
+
+    function flashScreen(colorClass) {
+        const phone = $('.phone');
+        phone.addClass(colorClass);
+        setTimeout(() => phone.removeClass(colorClass), 500); // Duration of flash effect
+    }
+
+    function updateTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        $('#currentTime').text(hours + ':' + minutes);
+    }
+
+    
+    function incrementScore(correct) {
+    
+        chords_played++;
+        
+        // Change the variables
+        if (correct === true) {
+            
+            correct_score++;
+            
+        }
+        
+        // Set the score to the screen
+        displayScore();
+        
+    }
+    
+    function displayScore() {
+        
+        // Update tags
+        const acc = document.getElementById("accuracy-score");
+        const cor = document.getElementById("correct-score");
+        
+        // Deal with the zero score
+        if (correct_score <= 0) {
+            acc.innerHTML = "0%";
+        } else {
+            acc.innerHTML = String((correct_score / chords_played * 100.0).toFixed(0)) + "%";
+        }
+        
+        cor.innerHTML = String(correct_score);
+    
+    }
+    
+    function initScore() {
+        
+        // Reset
+        chords_played = 0;
+        correct_score = 0;
+        
+        // Show this score
+        displayScore();
+    
+    }
+    
+    setInterval(updateTime, 1000); // Update time every second
+
+	// This will handle keyboard input (only allow input every set second)
+	document.addEventListener('keydown', function(event) {
+    	
+        
+        if(event.key == 'a') {
+        	
+            if (current_image == A) {
+                flashAction('right');
+                incrementScore(true);
+            } else {
+                flashAction('left');
+                incrementScore(false);
+                updateWorst(false);
+            }
+            
+    	} else if(event.key == 'c') {
+            
+            if (current_image == C) {
+                flashAction('right');
+                incrementScore(true);
+            } else {
+                flashAction('left');
+                incrementScore(false);
+                updateWorst(false);
+            }
+    	    
+    	} else if (event.key == 'd') {
+            
+            if (current_image == D) {
+                flashAction('right');
+                incrementScore(true);
+            } else {
+                flashAction('left');
+                incrementScore(false);
+                updateWorst(false);
+            }
+        
+        } else if (event.key == 'e') {
+            
+            if (current_image == Em) {
+                flashAction('right');
+                incrementScore(true);
+            } else {
+                flashAction('left');
+                incrementScore(false);
+                updateWorst(false);
+            }
+        
+        } else if (event.key == 'g') {
+        
+            if (current_image == G) {
+                flashAction('right');
+                incrementScore(true);
+            } else {
+                flashAction('left');
+                incrementScore(false);
+                updateWorst(false);
+            }
+            
+        } else {
+            
+            // Flash 'em
+            flashAction('left');
+            incrementScore(false);
+            updateWorst(false);
+        }
+        
+	});
+	
+    // Start the initial animation of the cube
+    if (playing && pngList.length > 0) {
+        animateCube();
+    }
+    
+});
+</script>
+
+</body>
+</html>
