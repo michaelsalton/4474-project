@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Menu Screen</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+
+	<style>
+		
+		.bottom-bar {
+			position: absolute;
+			bottom: -5vh;
+			width: 100%;
+			background-color: #333;
+			display: flex;
+			justify-content: space-around;
+			padding: 10px 0;
+			top: 38vh;
+		}
+		
+		#search-bar {
+		
+			position: absolute;
+			top: 5vh;
+			left: 0vw;
+			width: 15.5vw;
+			height: 23vh;
+		
+		}
+		
+		#chord-search {
+			
+			position: absolute;
+			top: 0.5vh;
+			left: 4vw;
+			width: 11.5vw;
+			height: 5vh;
+			color: white;
+			overflow: scroll;
+			display: none;
+
+		}
+		
+		#search-bar input {
+		
+			position: absolute;
+			top: 0vh;
+			left: 6vw;
+		
+		
+		}
+		
+		#microphone {
+			
+			position: absolute;
+			top: 0vh;
+			left: 0.5vw;
+			height: 4vh;
+			width: 3vw;
+		
+		}
+		
+		#search-results {
+
+			position: absolute;
+			top: 19vh;
+			left: 0vw;
+			width: 15.5vw;
+			height: 38vh;
+		
+		}
+		
+		#search-results ul li p {
+			color: white;
+			font-size: 0.5em;
+		}
+		
+		#search-results ul li {
+			background-color: gray;
+			width: 14.7vw;
+			margin-bottom: 1vh;
+			border-radius: 6px;
+			position: relative;
+			left: 0.6vw;
+			overflow: hidden;
+		}
+		
+		.band-name {
+			
+			position: relative;
+			top: 0.5vh;
+			left: 0.5vw;
+			margin-top: 0px;
+			margin-bottom: 0px;
+		}
+		
+		.song-name {
+			position: relative;
+			top: 0.6vh;
+			left: 0.5vw;
+			margin-top: 0px;
+			margin-bottom: 0px;
+		}
+		
+		.ratings {
+			position: relative;
+			top: -1.75vh;
+			left: 12vw;
+			margin-top: 0px;
+			margin-bottom: 0px;
+		}
+		
+		#search-results ul {
+		
+			position: relative;
+			top: 0vh;
+			left: 0vw;
+			width: 15.6vw;
+			padding-left: 0px;
+			margin-top: 0px;
+			margin-bottom: 0px;
+			height: 37.5vh;
+			overflow: auto;
+			
+		}
+		
+	</style>
+</head>
+<body>
+    <div class="phone-wrapper">
+        <div class="phone">
+            <div class="phone-header">
+                <div class="battery"></div>
+                <div class="network"></div>
+                <div class="time" id="currentTime"></div>
+            </div>
+			
+			<!-- This will be our search bar -->
+			<div id="search-bar">
+				
+				<img id="microphone" onclick="microphone()" onmouseover="micHover(true)" onmouseleave="micHover(false)" src="images/mic-off.png">
+				<input id="search-input" type="text" placeholder="search...">
+				<div id="chord-search">
+				</div>
+			</div>
+			
+			<div id="search-results">
+				
+				<ul>
+					
+					<li onclick="navigateTo('Tab Info')">
+						<p class="band-name">Band name: </p>
+						<p class="song-name">Song name: </p>
+						<p class="ratings">5 stars</p>
+					</li>
+					
+					<li>
+						<p class="band-name">Band name: </p>
+						<p class="song-name">Song name: </p>
+						<p class="ratings">5 stars</p>
+					</li>
+					
+					<li>
+						<p class="band-name">Band name: </p>
+						<p class="song-name">Song name: </p>
+						<p class="ratings">5 stars</p>
+					</li>
+					
+					<li>
+						<p class="band-name">Band name: </p>
+						<p class="song-name">Song name: </p>
+						<p class="ratings">5 stars</p>
+					</li>
+					
+					<li>
+						<p class="band-name">Band name: </p>
+						<p class="song-name">Song name: </p>
+						<p class="ratings">5 stars</p>
+					</li>
+					
+					<li>
+						<p class="band-name">Band name: </p>
+						<p class="song-name">Song name: </p>
+						<p class="ratings">5 stars</p>
+					</li>
+					
+					<li>
+						<p class="band-name">Band name: </p>
+						<p class="song-name">Song name: </p>
+						<p class="ratings">5 stars</p>
+					</li>
+					
+					<li>
+						<p class="band-name">Band name: </p>
+						<p class="song-name">Song name: </p>
+						<p class="ratings">5 stars</p>
+					</li>
+					
+					<li>
+						<p class="band-name">Band name: </p>
+						<p class="song-name">Song name: </p>
+						<p class="ratings">5 stars</p>
+					</li>
+					
+					<li>
+						<p class="band-name">Band name: </p>
+						<p class="song-name">Song name: </p>
+						<p class="ratings">5 stars</p>
+					</li>
+					
+					<li>
+						<p class="band-name">Band name: </p>
+						<p class="song-name">Song name: </p>
+						<p class="ratings">5 stars</p>
+					</li>
+					
+					
+				</ul
+			</div>
+			
+            <div class="bottom-bar">
+                <button class="button" onclick="navigateTo('Search')">Search</button>
+                <button class="button" onclick="navigateTo('My Tabs')">My Tabs</button>
+                <button class="button" onclick="navigateTo('Courses')">Courses</button>
+                <button class="button" onclick="navigateTo('Profile')">Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+		
+		function navigateTo(page) {
+		
+			if (page == "Tab Info") {
+				window.location.href = "tab info.html";
+			}
+		
+		
+		}
+		
+		
+        $(document).ready(function() {
+            function navigateTo(screen) {
+                // Implement screen navigation functionality here
+            }
+
+            function updateTime() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const timeString = hours + ':' + minutes;
+                $('#currentTime').text(timeString);
+            }
+
+            // Update time every second
+            setInterval(updateTime, 1000);
+
+            // Initial call to set time immediately
+            updateTime();
+			
+			
+        });
+		
+		// This is on if we are listening to input
+		let microphone_status = false;
+		function micHover(ontop) {
+			
+				const img = document.getElementById("microphone");
+				
+				if (ontop)
+					if (microphone_status === false) {
+						img.src = "images/mic-off-hover.png";
+					} else {
+						img.src = "images/mic-on-hover.png";
+					}
+				else {
+					if (microphone_status === false) {
+						img.src = "images/mic-off.png";
+					} else {
+						img.src = "images/mic-on.png";
+					}
+				}
+			
+			}
+		
+		function microphone() {
+		
+			// Set the new image
+			microphone_status = microphone_status ? false : true;
+			const img = document.getElementById("microphone");
+			const search_bar = document.getElementById("search-input");
+			const chord_search = document.getElementById("chord-search");
+			if (microphone_status === false) {
+				img.src = "images/mic-off-hover.png";
+				search_bar.style.display = "block";
+				chord_search.style.display = "none";
+				chord_search.innerHTML = "";
+				
+			} else {
+				img.src = "images/mic-on-hover.png";
+				search_bar.style.display = "none";
+				chord_search.style.display = "block";
+			}
+		
+		}
+		
+		document.addEventListener('keydown', function(event) {
+    	
+			if (microphone_status == false) {
+				return;
+			}
+			
+			// Images
+			const A  = "chords/A white.png";
+			const G  = "chords/G white.png";
+			const Em = "chords/Em white.png";
+			const C  = "chords/C white.png";
+			const D  = "chords/D white.png";
+
+			let chord_played;
+			let letter_chord;
+
+			if(event.key == 'a') {
+				chord_playe = A;
+				letter_chord = "A";
+			} else if(event.key == 'c') {
+				chord_played = C;
+				letter_chord = "C";
+			} else if (event.key == 'd') {
+				chord_played = D;
+				letter_chord = "D";
+			} else if (event.key == 'e') {
+				chord_played = Em;
+				letter_chord = "Em";
+			} else if (event.key == 'g') {
+				chord_played = G;
+				letter_chord = "G";
+			} else {
+				return;
+			}
+
+			const list = document.getElementById("chord-search");
+			list.innerHTML = list.innerHTML + letter_chord + " ";
+
+	});
+		
+		
+		
+    </script>
+</body>
+</html>
