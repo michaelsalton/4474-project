@@ -21,21 +21,22 @@
         
         #chords {
             
-            position: absolute;
-            top: 10vh;
+            position: relative;
+            top: 2vh;
             left: 1vw;
             display: block;
             width: 10vw;
-        
+            border-radius: 12px;
         }
         
         #strum {
 
-            position: absolute;
-            top: 18vh;
+            position: relative;
+            top: 3vh;
             left: 1vw;
             display: block;
             width: 8vw;
+            border-radius: 12px;
         
         }
         
@@ -49,13 +50,13 @@
         }
         
         #img-holder {
-        
-            position: absolute;
-            top: 26vh;
+            position: relative;
+            top: 4vh;
             left: 1vw;
             width: 13.7vw;
             overflow-y: scroll;
-            height: 26vh;
+            height: 24vh;
+            border-radius: 13px;
         }
         
         #song-info {
@@ -66,6 +67,8 @@
             width: 15.5vw;
             height: 9vh;
             font-size: 0.5em;
+            background-color: gray;
+            border-radius: 20px;
 
         }
         
@@ -97,8 +100,8 @@
         
         #play-button {
         
-             position: absolute;
-            top: 2.7vh;
+            position: relative;
+            top: 1.9vh;
             left: 12vw;
             
         }
@@ -107,6 +110,17 @@
             
             width: 2vw;
             
+        }
+        
+        #info {
+        
+            position: relative;
+            top: 10vh;
+            left: 0vw;
+            height: 42.7vh;
+            background-color: gray;
+            border-radius: 20px;
+        
         }
         
         
@@ -124,7 +138,6 @@
             
             <!-- Just normal screen stuff -->
             <div id="screen">
-                
                 <div id="song-info">
                     <h1 id="song-name">Stand by me</h1>
                     <h2 id="band-name">Ben E. King</h2>
@@ -133,11 +146,12 @@
                         <img src="images/play button.png" />
                     </button>
                 </div>
-                
-                <img id="chords" src="images/chords.png" />
-                <img id="strum" src="images/chord pattern.png" />
-                <div id="img-holder">
-                    <img id="tabs" src="images/tabs.png" />
+                <div id="info">
+                    <img id="chords" src="images/chords.png" />
+                    <img id="strum" src="images/chord pattern.png" />
+                    <div id="img-holder">
+                        <img id="tabs" src="images/tabs.png" />
+                    </div>
                 </div>
             </div>
             

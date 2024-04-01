@@ -17,7 +17,8 @@
 			display: flex;
 			justify-content: space-around;
 			padding: 10px 0;
-			top: 38vh;
+			top: 57vh;
+            height: 3vh;
 		}
 		
 		#search-bar {
@@ -44,12 +45,16 @@
 		}
 		
 		#search-bar input {
-		
-			position: absolute;
-			top: 0vh;
-			left: 6vw;
-		
-		
+
+            position: absolute;
+            top: 1vh;
+            left: 6vw;
+            background: gray;
+            border-color: gray;
+            border-radius: 10px;
+            color: white;
+
+
 		}
 		
 		#microphone {
@@ -85,6 +90,7 @@
 			position: relative;
 			left: 0.6vw;
 			overflow: hidden;
+            display: none;
 		}
 		
 		.band-name {
@@ -125,6 +131,16 @@
 			overflow: auto;
 			
 		}
+        
+        #search-results h1 {
+            
+            position: relative;
+            top: 6vh;
+            left: 2.4vw;
+            color: white;
+            font-style: italic;
+        
+        }
 		
 	</style>
 </head>
@@ -148,76 +164,77 @@
 			
 			<div id="search-results">
 				
+                <h1 id="no-results"> NO RESULTS </h1>
+                
 				<ul>
 					
-					<li onclick="navigateTo('Tab Info')">
-						<p class="band-name">Band name: </p>
-						<p class="song-name">Song name: </p>
+					<li onclick="navigateTo('Tab Info')" class="list">
+						<p class="band-name">Stand by me</p>
+						<p class="song-name">Ben E. King</p>
 						<p class="ratings">5 stars</p>
 					</li>
 					
-					<li>
-						<p class="band-name">Band name: </p>
-						<p class="song-name">Song name: </p>
+					<li class="list">
+						<p class="band-name">Take a Stand</p>
+						<p class="song-name">Mastadon</p>
+						<p class="ratings">3.4 stars</p>
+					</li>
+					
+					<li class="list">
+						<p class="band-name">Stand up</p>
+						<p class="song-name">Jimmy Carter</p>
+						<p class="ratings">3 stars</p>
+					</li>
+					
+					<li class="list">
+						<p class="band-name">Standing in the Rain</p>
+						<p class="song-name">Micheal</p>
 						<p class="ratings">5 stars</p>
 					</li>
 					
-					<li>
-						<p class="band-name">Band name: </p>
-						<p class="song-name">Song name: </p>
+					<li class="list">
+						<p class="band-name">I'm still standing</p>
+						<p class="song-name">Elton John</p>
 						<p class="ratings">5 stars</p>
 					</li>
 					
-					<li>
-						<p class="band-name">Band name: </p>
-						<p class="song-name">Song name: </p>
+					<li class="list">
+						<p class="band-name">Stranded</p>
+						<p class="song-name">Gojira</p>
+						<p class="ratings">4.3 stars</p>
+					</li>
+					
+					<li class="list">
+						<p class="band-name">Can't stand me now</p>
+						<p class="song-name">The libertines</p>
+						<p class="ratings">4 stars</p>
+					</li>
+					
+					<li class="list">
+						<p class="band-name">I stand alone</p>
+						<p class="song-name">Godsmack</p>
 						<p class="ratings">5 stars</p>
 					</li>
 					
-					<li>
-						<p class="band-name">Band name: </p>
-						<p class="song-name">Song name: </p>
-						<p class="ratings">5 stars</p>
+					<li class="list">
+						<p class="band-name">Don't stand so close to me</p>
+						<p class="song-name">The Police</p>
+						<p class="ratings">3 stars</p>
 					</li>
 					
-					<li>
-						<p class="band-name">Band name: </p>
-						<p class="song-name">Song name: </p>
-						<p class="ratings">5 stars</p>
+					<li class="list">
+						<p class="band-name">Stand Tall</p>
+						<p class="song-name">Childest Gambino</p>
+						<p class="ratings">4.5 stars</p>
 					</li>
 					
-					<li>
-						<p class="band-name">Band name: </p>
-						<p class="song-name">Song name: </p>
-						<p class="ratings">5 stars</p>
+					<li class="list">
+						<p class="band-name">Standing on the shore</p>
+						<p class="song-name">Empire of the sun</p>
+						<p class="ratings">4.7 stars</p>
 					</li>
 					
-					<li>
-						<p class="band-name">Band name: </p>
-						<p class="song-name">Song name: </p>
-						<p class="ratings">5 stars</p>
-					</li>
-					
-					<li>
-						<p class="band-name">Band name: </p>
-						<p class="song-name">Song name: </p>
-						<p class="ratings">5 stars</p>
-					</li>
-					
-					<li>
-						<p class="band-name">Band name: </p>
-						<p class="song-name">Song name: </p>
-						<p class="ratings">5 stars</p>
-					</li>
-					
-					<li>
-						<p class="band-name">Band name: </p>
-						<p class="song-name">Song name: </p>
-						<p class="ratings">5 stars</p>
-					</li>
-					
-					
-				</ul
+                </ul>
 			</div>
 			
             <div class="bottom-bar">
@@ -237,7 +254,29 @@
 				window.location.href = "tabinfo.html"; // Change "tabinfo.html" to the appropriate URL for "My Tabs"
 			}
 		}
-	
+        
+        function show() {
+        
+            const results = document.getElementsByClassName("list");
+            const no_results = document.getElementById("no-results");
+            
+            no_results.style.display = "none";
+            
+            for (let index = 0; index < results.length; index++) {
+                results.item(index).style.display = "block";
+            }
+        
+        }
+        
+        const search_bar = document.getElementById("search-input");
+        search_bar.onkeydown =  e => {
+           
+           if (e.key == "Enter") {
+                show();
+           }
+        
+        }
+        
 		$(document).ready(function() {
 			function updateTime() {
 				const now = new Date();
@@ -328,7 +367,10 @@
 			} else if (event.key == 'g') {
 				chord_played = G;
 				letter_chord = "G";
-			} else {
+			} else if (event.key == "Enter") {
+                show();
+                return;
+            } else {
 				return;
 			}
 

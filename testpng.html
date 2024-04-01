@@ -151,11 +151,10 @@
         #words-box {
             
             position: absolute;
-        
             width: 31vh;
             height: 13.7vh;
-            
-            background-color: black;
+            background-color: rgb(80, 80, 80);;
+            border-radius: 12px;
             
         }
         
@@ -203,15 +202,18 @@
             color: white;
             margin-top: 0px;
             text-align: center;
+            margin-bottom: 0px;
         
         }
         
         #worst-img {
         
             margin-top: 0px;
-            width: 5vw;
-            height: 6.6vh;
+            width: 4vw;
+            height: 8.6vh;
             display: none;
+            position: relative;
+            left: 0.4vw;
         
         }
         
@@ -250,16 +252,24 @@
             left: 0vh;
             
             width: 8vw;
-            height: 13.7vh;
+            height: 5.7vh;
         
         }
         
-        #song-info p {
+        #song-info h1 {
             height: 1vw;
             margin-top: 0px;
             margin-bottom: 0.3vh;
             color: white;
-            font-size: 0.8em;
+            font-size: 1.2em;
+        }
+        
+        #song-info h2 {
+            height: 1vw;
+            margin-top: 0px;
+            margin-bottom: 0.3vh;
+            color: white;
+            font-size: 0.9em;
         }
         
         #strum {
@@ -274,12 +284,12 @@
         
         #strum img {
             
-            position: absolute;
+            position: relative;
             left: 0vw;
-            top: 5.5vh;
+            top: 3.5vh;
             width: 7vw;
             height: 6vh;
-            
+            border-radius: 12px;
         }
         
         #strum p {
@@ -321,15 +331,14 @@
         </div>
         
         <div id="words-box">
-            <button id="back-button" onclick="navigateTo('Tab Info')">
+            <button id="back-button" onclick="history.back()">
                 <img src="images/back button.png" />
             </button>
             <div id="song-info">
-                <p>Song name: Stand by me</p>
-                <p>Band Name: Ben E. King</p>
+                <h1>Stand by me</h1>
+                <h2>Ben E. King</h2>
             </div>
             <div id="strum">
-                <p> strum pattern </p>
                 <img id="strum" src="images/chord pattern.png">
             </div>
         </div>
@@ -355,23 +364,29 @@
             </div>
         </div>
         <div class="bottom-bar">
-            <button class="button">Search</button>
-            <button class="button">My Tabs</button>
-            <button class="button">Courses</button>
+            <button class="button" onclick="navigateTo('Search')">Search</button>
+            <button class="button" onclick="navigateTo('My Tabs')">My Tabs</button>
+            <!-- <button class="button">Courses</button> -->
             <button class="button">Profile</button>
         </div>
     </div>
 </div>   
 
-<script>
-    
-function navigateTo(page) {
+<script> 
 
-    if (page == "Tab Info") {
-        window.location.href = "tab info.html";
+function navigateTo(screen) {
+    // Implement screen navigation functionality here
+
+    if (screen == "Game") {
+        window.location.href = "testpng.html";
+    } else if (screen == "Search") {
+        window.location.href = "searchPage.html";
+    } else if (screen == "My Tabs") {
+        // Redirect to tabs page for beginner level
+        window.location.href = "index.html#Beginner";
     }
 
-} 
+}
    
 $(document).ready(function() {
     
@@ -438,9 +453,9 @@ $(document).ready(function() {
         img.src = getWorst();
         
         if (img.src == "") {
-            img.hide();
+            img.style.display = "none";
         } else {
-            img.show();
+            img.style.display = "block";
         }
         
         
