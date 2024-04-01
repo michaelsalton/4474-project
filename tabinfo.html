@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Menu Screen</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        
+        #screen {
+            
+            position: absolute;
+            top: 4.5vh;
+            left: 0vw;
+            width: 15.5vw;
+            height: 52.7vh;
+        
+        }
+        
+        #chords {
+            
+            position: absolute;
+            top: 10vh;
+            left: 1vw;
+            display: block;
+            width: 10vw;
+        
+        }
+        
+        #strum {
+
+            position: absolute;
+            top: 18vh;
+            left: 1vw;
+            display: block;
+            width: 8vw;
+        
+        }
+        
+        #tabs {
+            
+            position: absolute;
+            top: 0vh;
+            left: 0vw;
+            width: 13.7vw;
+        
+        }
+        
+        #img-holder {
+        
+            position: absolute;
+            top: 26vh;
+            left: 1vw;
+            width: 13.7vw;
+            overflow-y: scroll;
+            height: 26vh;
+        }
+        
+        #song-info {
+            position: absolute;
+            top: 0vh;
+            left: 0vw;
+            color: white;
+            width: 15.5vw;
+            height: 9vh;
+            font-size: 0.5em;
+
+        }
+        
+        #song-name {
+            
+            position: absolute;
+            top: 1vh;
+            left: 1vw;
+            margin-top: 0px;
+        
+        }
+        
+        #band-name {
+            
+            position: absolute;
+            top: 3.7vh;
+            left: 1vw;
+            margin-top: 0px;
+        
+        }
+        
+        #ratings {
+            
+            position: absolute;    
+            top: 4.2vh;
+            left: 1vw;
+        
+        }
+        
+        #play-button {
+        
+             position: absolute;
+            top: 2.7vh;
+            left: 12vw;
+            
+        }
+        
+        #play-button img {
+            
+            width: 2vw;
+            
+        }
+        
+        
+    </style>
+    
+</head>
+<body>
+    <div class="phone-wrapper">
+        <div class="phone">
+            <div class="phone-header">
+                <div class="battery"></div>
+                <div class="network"></div>
+                <div class="time" id="currentTime"></div>
+            </div>
+            
+            <!-- Just normal screen stuff -->
+            <div id="screen">
+                
+                <div id="song-info">
+                    <h1 id="song-name">Stand by me</h1>
+                    <h2 id="band-name">Ben E. King</h2>
+                    <h2 id="ratings">5 stars</h2>
+                    <button id="play-button" onclick="navigateTo('Game')">
+                        <img src="images/play button.png" />
+                    </button>
+                </div>
+                
+                <img id="chords" src="images/chords.png" />
+                <img id="strum" src="images/chord pattern.png" />
+                <div id="img-holder">
+                    <img id="tabs" src="images/tabs.png" />
+                </div>
+            </div>
+            
+            <div class="bottom-bar">
+                <button class="button" onclick="navigateTo('Search')">Search</button>
+                <button class="button" onclick="navigateTo('My Tabs')">My Tabs</button>
+                <button class="button" onclick="navigateTo('Profile')">Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        function navigateTo(screen) {
+            // Implement screen navigation functionality here
+
+            if (screen == "Game") {
+                window.location.href = "testpng.html";
+            } else if (screen == "Search") {
+                window.location.href = "searchPage.html";
+            } else if (screen == "My Tabs") {
+                // Redirect to tabs page for beginner level
+                window.location.href = "index.html#Beginner";
+            }
+
+        }
+        
+        $(document).ready(function() {
+
+            function updateTime() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const timeString = hours + ':' + minutes;
+                $('#currentTime').text(timeString);
+            }
+
+            // Update time every second
+            setInterval(updateTime, 1000);
+
+            // Initial call to set time immediately
+            updateTime();
+        });
+    </script>
+</body>
+</html>

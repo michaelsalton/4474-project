@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Guitar: Chords and Tabs</title>
+    <title>Ultimate Guitar: My Tabs</title> <!-- Updated title -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -18,7 +18,7 @@
             <div class="app">
                 <!-- Your app content goes here -->
                 <div id="screenTitle" style="display: none;">
-                    <h1>Ultimate Guitar: Chords and Tabs</h1>
+                    <h1>Ultimate Guitar: My Tabs</h1> <!-- Updated title -->
                     <p>A redesign by group 16.</p>
                 </div>
                 <div class="user-level">
@@ -90,7 +90,7 @@
             <div class="bottom-bar-container" style="display: none;">
                 <div class="bottom-bar">
                     <button class="button" id="searchButton">Search</button>
-                    <button class="button" id="songsButton">Songs</button>
+                    <button class="button" id="songsButton">My Tabs</button> <!-- Updated button label -->
                     <button class="button" id="profileButton">Profile</button>
                 </div>
             </div>
@@ -160,12 +160,8 @@ $(document).ready(function() {
 
     // Show blank content for Search tab
     $('#searchButton').click(function() {
-        $('.user-level').hide();
-        $('#switchLevel').hide();
-        $('.bottom-bar-container').show(); // Show bottom bar for Search
-        $('#screenTitle').show(); // Show header bar for Search
-        $('.suggested-songs').hide();
-        // Add your Search content here
+        // Navigate to searchPage.html in the same tab
+        window.location.href = "searchPage.html";
     });
 
     // Show blank content for Profile tab
@@ -180,15 +176,9 @@ $(document).ready(function() {
 
     // Handle click on song button
     $('.song-button').click(function() {
-        // Hide all content except header and back button
-        $('.user-level').hide();
-        $('#switchLevel').hide();
-        $('.bottom-bar-container').hide();
-        $('.suggested-songs').hide(); // Hide song list
-        $('#screenTitle').html('<div class="back-arrow">&#8592;</div>').show();
-        // Navigate to another blank page
-        // Add your song-specific content here
-        // You can access the song name using $(this).data('song')
+        // Navigate to tabinfo.html with song information
+        const songName = $(this).data('song');
+        window.location.href = "tabinfo.html?song=" + encodeURIComponent(songName);
     });
 
     function setButtonWidth() {

@@ -223,45 +223,36 @@
             <div class="bottom-bar">
                 <button class="button" onclick="navigateTo('Search')">Search</button>
                 <button class="button" onclick="navigateTo('My Tabs')">My Tabs</button>
-                <button class="button" onclick="navigateTo('Courses')">Courses</button>
+                <!-- <button class="button" onclick="navigateTo('Courses')">Courses</button> -->
                 <button class="button" onclick="navigateTo('Profile')">Profile</button>
             </div>
         </div>
     </div>
 
-    <script>
-		
+	<script>
 		function navigateTo(page) {
-		
-			if (page == "Tab Info") {
-				window.location.href = "tab info.html";
+			if (page === "Tab Info") {
+				window.location.href = "tabinfo.html";
+			} else if (page === "My Tabs") {
+				window.location.href = "tabinfo.html"; // Change "tabinfo.html" to the appropriate URL for "My Tabs"
 			}
-		
-		
 		}
-		
-		
-        $(document).ready(function() {
-            function navigateTo(screen) {
-                // Implement screen navigation functionality here
-            }
-
-            function updateTime() {
-                const now = new Date();
-                const hours = now.getHours().toString().padStart(2, '0');
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                const timeString = hours + ':' + minutes;
-                $('#currentTime').text(timeString);
-            }
-
-            // Update time every second
-            setInterval(updateTime, 1000);
-
-            // Initial call to set time immediately
-            updateTime();
-			
-			
-        });
+	
+		$(document).ready(function() {
+			function updateTime() {
+				const now = new Date();
+				const hours = now.getHours().toString().padStart(2, '0');
+				const minutes = now.getMinutes().toString().padStart(2, '0');
+				const timeString = hours + ':' + minutes;
+				$('#currentTime').text(timeString);
+			}
+	
+			// Update time every second
+			setInterval(updateTime, 1000);
+	
+			// Initial call to set time immediately
+			updateTime();
+		});
 		
 		// This is on if we are listening to input
 		let microphone_status = false;
